@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
  * a complexidade de integrações (Banco de Dados H2 e API do ViaCEP) em uma
  * interface simples e coesa (API REST).
  *
- * @herculesherculano
+ * @author falvojr
  */
 
 @RestController
@@ -38,9 +38,14 @@ public class ClienteRestController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Void> deletar(@PathVariable Long id){
+    public ResponseEntity<Cliente> atualizar(@PathVariable Long id, @RequestBody Cliente cliente) {
+        clienteService.atualizar(id, cliente);
+        return ResponseEntity.ok(cliente);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deletar(@PathVariable Long id) {
         clienteService.deletar(id);
         return ResponseEntity.ok().build();
     }
-
 }
